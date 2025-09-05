@@ -1,0 +1,43 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+package-lock.json
+
+# Logs
+logs
+*.log
+*.log.*
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Runtime data
+lib-cov
+coverage/
+.nyc_output
+dist/
+.next/
+out/
+
+# TypeScript
+*.tsbuildinfo
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# Environment files
+.env
+.env*.local
+
+# SQLite database
+*.db
+*.db-journal
+
+# OS
+.DS_Store
+Thumbs.db
