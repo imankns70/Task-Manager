@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "NestJS backend for Task Manager project",
   "main": "dist/main.js",
-"scripts": {
-  "start": "ts-node src/main.ts",
-  "start:dev": "ts-node-dev --respawn src/main.ts",
-  "start:debug": "node --inspect-brk -r ts-node/register src/main.ts"
-},
-
+  "scripts": {
+    "start": "ts-node src/main.ts",
+    "start:dev": "ts-node-dev --respawn src/main.ts",
+    "start:debug": "node --inspect-brk -r ts-node/register src/main.ts"
+  },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
