@@ -9,17 +9,18 @@ import {
 } from "@nestjs/common";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { UpdateTaskDto } from "./dto/update-task.dto";
-import { TasksService } from "./tasks.service";
+import { TasksService } from "./services/tasks.service";
 
 @Controller("tasks")
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
-  async findAll() {
+   findAll() {
     // console.log("Fetching all tasks with 3s delay...");
     // await new Promise((resolve) => setTimeout(resolve, 3000));
     return this.tasksService.findAll();
+   
   }
 
   @Get(":id")
@@ -29,6 +30,7 @@ export class TasksController {
 
   @Post()
   create(@Body() dto: CreateTaskDto) {
+    console.log(dto); 
     return this.tasksService.create(dto);
   }
 

@@ -1,7 +1,8 @@
-// frontend/src/models/task.ts
+import { TaskStatus } from "./task-status";
+
 export interface Task {
   id: number;
   title: string;
-  description: string;
-  completed?: boolean; // optional field
+  statusId: number;     // <-- add this
+  status?: TaskStatus;  // optional navigation
 }
