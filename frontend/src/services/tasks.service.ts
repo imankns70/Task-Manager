@@ -1,6 +1,6 @@
 import { Task } from "@/models/task";
 import { TaskStatus } from "@/models/task-status";
-
+import { CreateTaskDto } from "@/models/create-task.dto"
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api`;
 
 if (!BASE_URL) {
@@ -9,13 +9,19 @@ if (!BASE_URL) {
   );
 }
 
-export async function getTasks(): Promise<Task[]> {
-  const res = await fetch(`${BASE_URL}/tasks`);
-  if (!res.ok) throw new Error("Failed to fetch tasks");  
-  return res.json();
+export async function getTasks(page = 1, limit = 5, statusId?: number) {
+  debugger
+  const url = new URL(`${BASE_URL}/tasks`);
+  url.searchParams.append("page", page.toString());
+  url.searchParams.append("limit", limit.toString());
+  if (statusId) url.searchParams.append("statusId", statusId.toString());
+
+  const res = await fetch(url.toString());
+  if (!res.ok) throw new Error("Failed to fetch tasks");
+  return res.json(); // returns { data, total, page, limit, totalPages }
 }
 
-export async function createTask(task: Omit<Task, "id">): Promise<Task> {
+export async function createTask(task: CreateTaskDto): Promise<Task> {
   const res = await fetch(`${BASE_URL}/tasks`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

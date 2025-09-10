@@ -12,9 +12,28 @@ export class TasksService {
     private taskRepo: Repository<Task>
   ) {}
 
-  findAll(): Promise<Task[]> {
-    return this.taskRepo.find();
+async findAll(page: number, limit: number, statusId?: number) {
+  console.log(`page:${page},limit:${limit},statusId:${statusId}`)
+  const query = this.taskRepo.createQueryBuilder('task')
+    .leftJoinAndSelect('task.status', 'status')
+    .orderBy('task.createdAt', 'DESC')
+    .skip((page - 1) * limit)
+    .take(limit);
+  
+  if (statusId) {    
+    query.andWhere('task.statusId = :statusId', { statusId });
   }
+  const [data, total] = await query.getManyAndCount();
+
+  return {
+    data,
+    total,
+    page,
+    limit,
+    totalPages: Math.ceil(total / limit),
+  };
+}
+
 
   findOne(id: number): Promise<Task | null> {
     return this.taskRepo.findOneBy({ id });

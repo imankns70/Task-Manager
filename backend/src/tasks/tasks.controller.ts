@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from "@nestjs/common";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { UpdateTaskDto } from "./dto/update-task.dto";
@@ -16,11 +17,18 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
-   findAll() {
-    // console.log("Fetching all tasks with 3s delay...");
+  findAll(
+    @Query("page") page = 1,
+    @Query("limit") limit = 10,
+    @Query("statusId") statusId?: number
+  ) {
+
     // await new Promise((resolve) => setTimeout(resolve, 3000));
-    return this.tasksService.findAll();
-   
+    return this.tasksService.findAll(
+      +page,
+      +limit,
+      statusId ? +statusId : undefined
+    );
   }
 
   @Get(":id")
@@ -30,7 +38,7 @@ export class TasksController {
 
   @Post()
   create(@Body() dto: CreateTaskDto) {
-    console.log(dto); 
+    console.log(dto);
     return this.tasksService.create(dto);
   }
 

@@ -7,7 +7,6 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { TaskStatus } from "./task-status.entity";
- 
 
 @Entity()
 export class Task {
@@ -20,12 +19,12 @@ export class Task {
   @Column({ nullable: true })
   description?: string;
 
-  @Column()              
-  statusId!: number;
+  @Column({ nullable: true })
+  statusId?: number;
 
   @ManyToOne(() => TaskStatus, (status) => status.tasks, { eager: true })
-  @JoinColumn({ name: 'statusId' })
-  status!: TaskStatus;
+  @JoinColumn({ name: "statusId" })
+  status?: TaskStatus;
 
   @CreateDateColumn()
   createdAt?: Date;
